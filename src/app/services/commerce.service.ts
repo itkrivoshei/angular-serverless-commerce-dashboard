@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface CommerceItem {
@@ -8,20 +8,6 @@ export interface CommerceItem {
   material: string;
   department: string;
   price: number;
-}
-
-interface DummyJsonProduct {
-  title: string;
-  brand?: string;
-  category: string;
-  price: number;
-}
-
-interface DummyJsonProductsResponse {
-  products: DummyJsonProduct[];
-  total: number;
-  skip: number;
-  limit: number;
 }
 
 @Injectable({
@@ -39,15 +25,6 @@ export class CommerceService {
 
     this.skip += this.limit;
 
-    return this.http.get<DummyJsonProductsResponse>(url).pipe(
-      map((response) =>
-        response.products.map((product) => ({
-          product_name: product.title,
-          material: product.brand || 'N/A',
-          department: product.category,
-          price: product.price,
-        }))
-      )
-    );
+    return this.http.get<CommerceItem[]>(url);
   }
 }
