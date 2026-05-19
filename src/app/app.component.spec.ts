@@ -16,10 +16,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'AngularCommerceTableApp'`, () => {
+  it(`should have as title 'angular-serverless-commerce-dashboard'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.title = 'AngularCommerceTableApp';
-    expect(app.title).toEqual('AngularCommerceTableApp');
+    expect(app.title).toEqual('angular-serverless-commerce-dashboard');
   });
 });
