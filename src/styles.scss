@@ -1,9 +1,15 @@
 html,
 body {
-  height: 100%;
-  background-color: #f0cbcb;
+  min-height: 100%;
+  background: #f8fafc;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
 }
