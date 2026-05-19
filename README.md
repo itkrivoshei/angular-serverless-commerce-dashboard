@@ -1,86 +1,209 @@
-# 🛒 AngularCommerceTableApp
+# Angular Serverless Commerce Dashboard
 
-A streamlined Angular project showcasing a dynamic data table of commerce entries. Initially fetching data from [random-data-api.com](https://random-data-api.com/), this app now integrates a serverless backend with AWS Lambda and API Gateway, enhanced with Angular Material and state management via NgRx.
+Angular commerce dashboard connected to an AWS serverless API layer. The application is deployed on GitHub Pages and loads normalized product data through API Gateway and Lambda.
 
-## 🔗 Live Demo
+## Live Demo
 
-Check out the live demo [here](https://itkrivoshei.github.io/AngularCommerceTableApp/).
+Demo: https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/
 
-## 🚀 Quick Start
+## Overview
 
-Clone the project:
+This project demonstrates a small production-style frontend and serverless integration:
 
-```sh
-git clone https://github.com/itkrivoshei/AngularCommerceTableApp.git
+```text
+GitHub Pages
+    ↓
+Angular dashboard
+    ↓
+AWS API Gateway
+    ↓
+AWS Lambda proxy
+    ↓
+External product data API
 ```
 
-Change directory:
+The Angular frontend displays commerce product data in a responsive dashboard UI. The backend layer uses AWS Lambda as a lightweight API proxy that fetches external product data, normalizes the response shape, and returns the fields expected by the frontend table.
 
-```sh
-cd AngularCommerceTableApp
+This repository is kept public as a cloud-adjacent frontend project showing Angular, TypeScript, NgRx, AWS Lambda/API Gateway integration, and automated GitHub Pages deployment.
+
+## Architecture
+
+- **Frontend:** Angular application deployed as a static site on GitHub Pages.
+- **API layer:** AWS API Gateway exposes a public HTTP endpoint for the frontend.
+- **Serverless backend:** AWS Lambda fetches and normalizes product data.
+- **State management:** NgRx is used for loading and storing commerce data.
+- **Deployment:** GitHub Actions builds and deploys the Angular app to GitHub Pages.
+
+## Tech Stack
+
+- Angular
+- TypeScript
+- Angular Material
+- NgRx
+- RxJS
+- SCSS
+- AWS Lambda
+- AWS API Gateway
+- GitHub Actions
+- GitHub Pages
+
+## Features
+
+- Responsive commerce dashboard UI
+- Product inventory table
+- Serverless API integration through AWS Lambda and API Gateway
+- Normalized product data model
+- NgRx-based state handling
+- Load more functionality with pagination parameters
+- Production GitHub Pages build configuration
+- Automated deployment through GitHub Actions
+
+## Project Structure
+
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   └── commerce-table/
+│   │   ├── services/
+│   │   └── store/
+│   │       ├── actions/
+│   │       ├── effects/
+│   │       └── reducers/
+│   ├── environments/
+│   ├── assets/
+│   └── styles.scss
+├── angular.json
+├── package.json
+└── README.md
 ```
+
+## Data Flow
+
+```text
+User opens dashboard
+    ↓
+Angular component dispatches load action
+    ↓
+NgRx effect calls CommerceService
+    ↓
+CommerceService requests API Gateway endpoint
+    ↓
+Lambda fetches product data from external API
+    ↓
+Lambda maps data to frontend table format
+    ↓
+NgRx reducer updates dashboard state
+```
+
+## Local Development
 
 Install dependencies:
 
-```sh
+```bash
 npm install
 ```
 
-Serve the project locally:
+Run the development server:
 
-```sh
-ng serve
+```bash
+npm start
 ```
 
-Navigate to `http://localhost:4200/` to view the app.
+Open the app locally:
 
-## 🛠 AWS Configuration
-
-Configured AWS Lambda and API Gateway for backend services to bypass CORS issues and securely fetch data for the application.
-
-## 🏭 Build and Deploy
-
-Build the project:
-
-```sh
-ng build --configuration production --base-href "https://itkrivoshei.github.io/AngularCommerceTableApp/"
+```text
+http://localhost:4200/
 ```
 
-Deploy to GitHub Pages:
+## Build
 
-```sh
-ngh --dir=dist/AngularCommerceTableApp
+Create a production build:
+
+```bash
+npm run build
 ```
 
-## 🧪 Unit Tests
+Create a GitHub Pages build:
 
-Run unit tests with the following command:
-
-```sh
-ng test
+```bash
+npm run build:pages
 ```
 
-Tests are detailed for:
+The GitHub Pages build uses the correct repository base path:
 
-- [Commerce Table Component](src/app/components/commerce-table/commerce-table.component.spec.ts)
-- [App Component](src/app/app.component.spec.ts)
-- [Commerce Service](src/app/services/commerce.service.spec.ts)
+```text
+/angular-serverless-commerce-dashboard/
+```
 
-## ⚙️ Environment Configuration
+## Deployment
 
-Configured for development and production environments with respective AWS API Gateway endpoints:
+This project uses GitHub Actions for deployment.
 
-- [Development](src/environments/environment.ts)
-- [Production](src/environments/environment.prod.ts)
+On every push to `main`, the workflow:
 
-## 🎨 Features
+1. Installs dependencies
+2. Builds the Angular app
+3. Prepares the static artifact
+4. Deploys the result to GitHub Pages
 
-- Fetches and displays over 100 commerce entries from a serverless AWS backend.
-- Utilizes Angular Material for UI components.
-- Incorporates NgRx for state management.
-- "Load More Commerces" button to fetch additional entries.
-- Custom styling for a unique user experience.
+Workflow file:
 
-## 📄 License
+```text
+.github/workflows/deploy-pages.yml
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Environment Configuration
+
+The API endpoint is configured in:
+
+```text
+src/environments/environment.ts
+src/environments/environment.prod.ts
+```
+
+Both files point the Angular app to the AWS API Gateway endpoint used by the Lambda proxy.
+
+Only public API Gateway URLs should be stored in frontend environment files. Do not commit AWS access keys, secret keys, tokens, or private credentials.
+
+## Testing
+
+Run unit tests:
+
+```bash
+npm test
+```
+
+Test files include:
+
+- `src/app/app.component.spec.ts`
+- `src/app/components/commerce-table/commerce-table.component.spec.ts`
+- `src/app/services/commerce.service.spec.ts`
+
+## Portfolio Notes
+
+This project is intended to show practical experience with:
+
+- Angular frontend development
+- TypeScript application structure
+- Component-based UI implementation
+- NgRx actions, effects, and reducers
+- API service abstraction
+- Serverless backend integration
+- AWS Lambda and API Gateway
+- Static hosting with GitHub Pages
+- CI/CD workflow configuration with GitHub Actions
+
+## Status
+
+Active portfolio project.
+
+The original external data source was replaced with a more stable API source behind the AWS Lambda proxy. The frontend continues to consume a normalized commerce data model through the serverless API layer.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
