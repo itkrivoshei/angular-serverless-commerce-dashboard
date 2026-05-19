@@ -1,39 +1,85 @@
-<div class="table-header">
-  <h1>Serverless Commerce Dashboard</h1>
-</div>
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="commerces$" class="mat-elevation-z8">
-    <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-    </ng-container>
+<main class="dashboard-shell">
+  <header class="dashboard-hero">
+    <div class="hero-copy-block">
+      <p class="eyebrow">AWS Lambda • API Gateway • Angular</p>
+      <h1>Serverless Commerce Dashboard</h1>
+      <p class="hero-copy">
+        Production-style Angular dashboard consuming normalized commerce data
+        through an AWS serverless API proxy.
+      </p>
+    </div>
 
-    <ng-container matColumnDef="product_name">
-      <th mat-header-cell *matHeaderCellDef>Product Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.product_name }}</td>
-    </ng-container>
+    <aside class="architecture-card" aria-label="Architecture status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <div>
+        <strong>Live serverless pipeline</strong>
+        <span>GitHub Pages → API Gateway → Lambda</span>
+      </div>
+    </aside>
+  </header>
 
-    <ng-container matColumnDef="material">
-      <th mat-header-cell *matHeaderCellDef>Material</th>
-      <td mat-cell *matCellDef="let element">{{ element.material }}</td>
-    </ng-container>
+  <section class="metrics-grid" aria-label="Project highlights">
+    <article class="metric-card">
+      <span class="metric-label">Frontend</span>
+      <strong>Angular 17</strong>
+    </article>
 
-    <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef>Department</th>
-      <td mat-cell *matCellDef="let element">{{ element.department }}</td>
-    </ng-container>
+    <article class="metric-card">
+      <span class="metric-label">State</span>
+      <strong>NgRx Store</strong>
+    </article>
 
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>Price</th>
-      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
-    </ng-container>
+    <article class="metric-card">
+      <span class="metric-label">Backend</span>
+      <strong>AWS Lambda</strong>
+    </article>
+  </section>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
-<div class="load-more-container">
-  <button mat-raised-button color="warn" (click)="loadMore()">
-    Load More Commerces
-  </button>
-</div>
+  <section class="table-card">
+    <div class="table-toolbar">
+      <div>
+        <p class="section-kicker">Commerce data</p>
+        <h2>Product inventory</h2>
+      </div>
+      <span class="api-badge">API Gateway proxy</span>
+    </div>
+
+    <div class="table-scroll">
+      <table mat-table [dataSource]="commerces$" class="commerce-table">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="product_name">
+          <th mat-header-cell *matHeaderCellDef>Product Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.product_name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="material">
+          <th mat-header-cell *matHeaderCellDef>Brand / Material</th>
+          <td mat-cell *matCellDef="let element">{{ element.material }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef>Department</th>
+          <td mat-cell *matCellDef="let element">{{ element.department }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </section>
+
+  <div class="load-more-container">
+    <button mat-raised-button color="primary" (click)="loadMore()">
+      Load more products
+    </button>
+  </div>
+</main>
