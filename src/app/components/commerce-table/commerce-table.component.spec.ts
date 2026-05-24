@@ -1,5 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { CommerceTableComponent } from './commerce-table.component';
@@ -12,6 +14,7 @@ describe('CommerceTableComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CommerceTableComponent],
+      imports: [CommonModule, MatButtonModule, MatTableModule],
       providers: [
         provideMockStore({
           initialState: {
@@ -19,7 +22,6 @@ describe('CommerceTableComponent', () => {
           },
         }),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CommerceTableComponent);
