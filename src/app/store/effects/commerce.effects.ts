@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import * as CommerceActions from '../actions/commerce.actions';
+
 import { CommerceService } from '../../services/commerce.service';
+import * as CommerceActions from '../actions/commerce.actions';
 
 @Injectable()
 export class CommerceEffects {
@@ -15,8 +16,12 @@ export class CommerceEffects {
           map((commerces) =>
             CommerceActions.loadCommercesSuccess({ commerces })
           ),
-          catchError((error) =>
-            of(CommerceActions.loadCommercesFailure({ error }))
+          catchError(() =>
+            of(
+              CommerceActions.loadCommercesFailure({
+                error: 'Unable to load commerce data.',
+              })
+            )
           )
         )
       )
