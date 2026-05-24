@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+
+import { CommerceItem } from '../../models/commerce-item.model';
 import { loadCommerces } from '../../store/actions/commerce.actions';
 import { State } from '../../store/reducers/commerce.reducer';
 
@@ -10,8 +12,10 @@ import { State } from '../../store/reducers/commerce.reducer';
   styleUrls: ['./commerce-table.component.scss'],
 })
 export class CommerceTableComponent implements OnInit {
-  commerces$: Observable<any[]>;
-  displayedColumns: string[] = [
+  readonly commerces$: Observable<CommerceItem[]>;
+  readonly isLoading$: Observable<boolean>;
+  readonly error$: Observable<string | null>;
+  readonly displayedColumns = [
     'index',
     'product_name',
     'material',
@@ -21,10 +25,12 @@ export class CommerceTableComponent implements OnInit {
 
   constructor(private store: Store<{ commerce: State }>) {
     this.commerces$ = this.store.select((state) => state.commerce.commerces);
+    this.isLoading$ = this.store.select((state) => state.commerce.isLoading);
+    this.error$ = this.store.select((state) => state.commerce.error);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCommerces());
+    this.loadMore();
   }
 
   loadMore(): void {
