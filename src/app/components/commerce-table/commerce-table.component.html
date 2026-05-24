@@ -4,15 +4,15 @@
       <p class="eyebrow">AWS Lambda • API Gateway • Angular</p>
       <h1>Serverless Commerce Dashboard</h1>
       <p class="hero-copy">
-        Production-style Angular dashboard consuming normalized commerce data
-        through an AWS serverless API proxy.
+        Angular dashboard consuming normalized commerce data through an AWS
+        serverless API proxy.
       </p>
     </div>
 
-    <aside class="architecture-card" aria-label="Architecture status">
+    <aside class="architecture-card" aria-label="Request path">
       <span class="status-dot" aria-hidden="true"></span>
       <div>
-        <strong>Live serverless pipeline</strong>
+        <strong>Serverless request path</strong>
         <span>GitHub Pages → API Gateway → Lambda</span>
       </div>
     </aside>
@@ -35,6 +35,16 @@
     </article>
   </section>
 
+  <section class="pipeline-card" aria-label="Serverless data flow">
+    <span>Dashboard</span>
+    <span aria-hidden="true">→</span>
+    <span>API Gateway</span>
+    <span aria-hidden="true">→</span>
+    <span>Lambda proxy</span>
+    <span aria-hidden="true">→</span>
+    <span>Commerce data</span>
+  </section>
+
   <section class="table-card">
     <div class="table-toolbar">
       <div>
@@ -43,6 +53,10 @@
       </div>
       <span class="api-badge">API Gateway proxy</span>
     </div>
+
+    <p *ngIf="error$ | async as error" class="state-message state-message--error">
+      {{ error }}
+    </p>
 
     <div class="table-scroll">
       <table mat-table [dataSource]="commerces$" class="commerce-table">
@@ -78,8 +92,14 @@
   </section>
 
   <div class="load-more-container">
-    <button mat-raised-button color="primary" (click)="loadMore()">
-      Load more products
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="isLoading$ | async"
+      (click)="loadMore()"
+    >
+      {{ (isLoading$ | async) ? 'Loading products…' : 'Load more products' }}
     </button>
   </div>
 </main>
