@@ -1,7 +1,0 @@
-{
-  "/api": {
-    "target": "https://dummyjson.com",
-    "secure": true,
-    "changeOrigin": true
-  }
-}
