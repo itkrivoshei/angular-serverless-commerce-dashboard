@@ -10,8 +10,6 @@ Commerce data dashboard built with Angular, Angular Material, NgRx, and an AWS A
 [![NgRx](https://img.shields.io/badge/NgRx-21-BA2BD2?style=for-the-badge&logo=redux&logoColor=white)](https://ngrx.io/)
 [![License](https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge)](LICENSE)
 
-### [Open Live Dashboard ->](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
-
 </div>
 
 ## Snapshot
@@ -79,8 +77,6 @@ src/app/
 ## Deployment
 
 Pushes to `main` run tests, build the Angular app with the GitHub Pages base path, upload the static artifact, and publish it through GitHub Pages.
-
-Live app: https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/
 
 ## License
 
