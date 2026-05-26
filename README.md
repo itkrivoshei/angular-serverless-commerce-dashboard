@@ -1,118 +1,87 @@
+<div align="center">
+
 # Angular Serverless Commerce Dashboard
 
-[![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0969da?style=for-the-badge&logo=githubpages&logoColor=white)](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
+Commerce data dashboard built with Angular, Angular Material, NgRx, and an AWS API Gateway/Lambda proxy.
+
+[![Live app](https://img.shields.io/badge/live-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-serverless-commerce-dashboard/deploy-pages.yml?branch=main&style=for-the-badge&label=deploy&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/angular-serverless-commerce-dashboard/actions/workflows/deploy-pages.yml)
-[![Angular](https://img.shields.io/badge/angular-21-dd0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
-[![TypeScript](https://img.shields.io/badge/typescript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
+[![NgRx](https://img.shields.io/badge/NgRx-21-BA2BD2?style=for-the-badge&logo=redux&logoColor=white)](https://ngrx.io/)
 [![License](https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge)](LICENSE)
 
-A polished Angular dashboard for browsing commerce product data served through an
-AWS serverless API. The frontend is built with Angular Material, NgRx Store and
-Effects, RxJS, and SCSS, then deployed automatically to GitHub Pages.
+### [Open Live Dashboard ->](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
 
-## Live Demo
+</div>
 
-[Open the dashboard](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
+## Snapshot
 
-## Highlights
+The app loads paginated commerce product data from a public AWS endpoint and renders it in a responsive Material table. Data fetching, loading state, and error state are driven through NgRx actions, reducers, and effects.
 
-- Clean Angular 21 app module structure
-- NgRx-powered loading, success, and failure states
-- Responsive Material data table with incremental product loading
-- AWS API Gateway endpoint backed by a Lambda proxy
-- GitHub Actions deployment to GitHub Pages
-- Lockfile-based installs for reproducible builds
-
-## Tech Stack
-
-| Layer | Tools |
+| Layer | Implementation |
 | --- | --- |
-| Frontend | [Angular](https://angular.dev/), [Angular Material](https://material.angular.io/) |
-| State | [NgRx Store](https://ngrx.io/guide/store), [NgRx Effects](https://ngrx.io/guide/effects), [RxJS](https://rxjs.dev/) |
-| Styling | SCSS, Material theme |
-| Backend integration | [AWS API Gateway](https://aws.amazon.com/api-gateway/), [AWS Lambda](https://aws.amazon.com/lambda/) |
-| Delivery | [GitHub Actions](https://github.com/features/actions), [GitHub Pages](https://pages.github.com/) |
+| UI | Angular 21, Angular Material table, SCSS |
+| State | NgRx Store and Effects |
+| Data | `CommerceService` with `HttpClient` |
+| API | AWS API Gateway endpoint backed by a Lambda proxy |
+| Delivery | GitHub Actions to GitHub Pages |
 
-## Getting Started
+## What it does
 
-Requirements:
+- Fetches product rows in `20` item chunks with `limit` and `skip` query params.
+- Shows product name, material, department, and price in a Material table.
+- Keeps load/error/data transitions in a dedicated NgRx feature slice.
+- Uses separate Angular environment files for the API URL.
+- Publishes the production build from `.github/workflows/deploy-pages.yml`.
 
-- [Node.js](https://nodejs.org/) 20.19+, 22.12+, or 24+
-- npm
-
-Install dependencies:
+## Run Locally
 
 ```bash
+git clone https://github.com/itkrivoshei/angular-serverless-commerce-dashboard.git
+cd angular-serverless-commerce-dashboard
 npm ci
-```
-
-Run locally:
-
-```bash
 npm start
 ```
 
-The development server opens at:
+Open `http://localhost:4200/`.
 
-```text
-http://localhost:4200/
-```
+## Commands
 
-## Scripts
-
-| Command | Description |
+| Command | Purpose |
 | --- | --- |
-| `npm start` | Start the Angular development server |
-| `npm run build` | Create a production build |
-| `npm run build:pages` | Build with the GitHub Pages base path |
-| `npm test` | Run the interactive Karma test watcher |
+| `npm start` | Start the Angular dev server |
+| `npm run build` | Build the production app |
+| `npm run build:pages` | Build with `/angular-serverless-commerce-dashboard/` as the base path |
+| `npm test` | Run the Karma test runner |
 | `npm run test:ci` | Run tests once in Chrome Headless |
 
-## Configuration
+## API Configuration
 
-The public API URL is configured in:
+The public API endpoint is defined in:
 
 ```text
 src/environments/environment.ts
 src/environments/environment.prod.ts
 ```
 
-Only frontend-safe values belong in these files. Do not commit AWS credentials,
-tokens, access keys, or private infrastructure settings.
+Only browser-safe values belong there. AWS credentials, tokens, and private infrastructure settings should stay outside the repository.
+
+## Repository Map
+
+```text
+src/app/
+├── components/commerce-table/   # Material table UI
+├── models/                      # Commerce item shape
+├── services/                    # HTTP integration
+└── store/                       # NgRx actions, effects, reducers
+```
 
 ## Deployment
 
-Deployment is handled by [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml).
+Pushes to `main` run tests, build the Angular app with the GitHub Pages base path, upload the static artifact, and publish it through GitHub Pages.
 
-On every push to `main`, the workflow:
-
-1. Installs dependencies with `npm ci`
-2. Runs the CI test command
-3. Builds the Angular app for the repository base path
-4. Uploads the static artifact
-5. Publishes it to GitHub Pages
-
-## Project Structure
-
-```text
-.
-├── .github/workflows/deploy-pages.yml
-├── src/
-│   ├── app/
-│   │   ├── components/commerce-table/
-│   │   ├── models/
-│   │   ├── services/
-│   │   └── store/
-│   ├── assets/
-│   ├── environments/
-│   ├── index.html
-│   ├── main.ts
-│   └── styles.scss
-├── angular.json
-├── package.json
-└── tsconfig.json
-```
+Live app: https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/
 
 ## License
 
-Released under the [MIT License](LICENSE).
+[MIT](LICENSE)
