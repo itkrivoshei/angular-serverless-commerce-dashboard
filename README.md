@@ -1,94 +1,98 @@
 # Angular Serverless Commerce Dashboard
 
-[![Pages workflow](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-serverless-commerce-dashboard/deploy-pages.yml?branch=main&style=flat-square&label=pages)](https://github.com/itkrivoshei/angular-serverless-commerce-dashboard/actions/workflows/deploy-pages.yml)
-[![Angular](https://img.shields.io/badge/Angular-17-dd0031?style=flat-square&logo=angular)](package.json)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178c6?style=flat-square&logo=typescript&logoColor=white)](package.json)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0969da?style=for-the-badge&logo=githubpages&logoColor=white)](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/itkrivoshei/angular-serverless-commerce-dashboard/deploy-pages.yml?branch=main&style=for-the-badge&label=deploy&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/angular-serverless-commerce-dashboard/actions/workflows/deploy-pages.yml)
+[![Angular](https://img.shields.io/badge/angular-21-dd0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/license-MIT-16a34a?style=for-the-badge)](LICENSE)
 
-Angular commerce dashboard that reads normalized product data from an AWS API Gateway endpoint backed by a Lambda proxy.
+A polished Angular dashboard for browsing commerce product data served through an
+AWS serverless API. The frontend is built with Angular Material, NgRx Store and
+Effects, RxJS, and SCSS, then deployed automatically to GitHub Pages.
 
-## Tech stack
+## Live Demo
 
-- Angular 17
-- TypeScript
-- Angular Material
-- NgRx Store and Effects
-- RxJS
-- SCSS
-- GitHub Actions
-- GitHub Pages
+[Open the dashboard](https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/)
 
-## Scope
+## Highlights
 
-This repository contains the Angular frontend. It consumes a public API Gateway endpoint configured in `src/environments/`.
+- Clean Angular 21 app module structure
+- NgRx-powered loading, success, and failure states
+- Responsive Material data table with incremental product loading
+- AWS API Gateway endpoint backed by a Lambda proxy
+- GitHub Actions deployment to GitHub Pages
+- Lockfile-based installs for reproducible builds
 
-The Lambda/API Gateway implementation and infrastructure configuration are not included in this repository.
+## Tech Stack
 
-## Live demo
+| Layer | Tools |
+| --- | --- |
+| Frontend | [Angular](https://angular.dev/), [Angular Material](https://material.angular.io/) |
+| State | [NgRx Store](https://ngrx.io/guide/store), [NgRx Effects](https://ngrx.io/guide/effects), [RxJS](https://rxjs.dev/) |
+| Styling | SCSS, Material theme |
+| Backend integration | [AWS API Gateway](https://aws.amazon.com/api-gateway/), [AWS Lambda](https://aws.amazon.com/lambda/) |
+| Delivery | [GitHub Actions](https://github.com/features/actions), [GitHub Pages](https://pages.github.com/) |
 
-```text
-https://itkrivoshei.github.io/angular-serverless-commerce-dashboard/
-```
+## Getting Started
 
-## Install
+Requirements:
+
+- [Node.js](https://nodejs.org/) 20.19+, 22.12+, or 24+
+- npm
+
+Install dependencies:
 
 ```bash
 npm ci
 ```
 
-## Run locally
+Run locally:
 
 ```bash
 npm start
 ```
 
-Local development server:
+The development server opens at:
 
 ```text
 http://localhost:4200/
 ```
 
-## Build
+## Scripts
 
-Production build:
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the Angular development server |
+| `npm run build` | Create a production build |
+| `npm run build:pages` | Build with the GitHub Pages base path |
+| `npm test` | Run the interactive Karma test watcher |
+| `npm run test:ci` | Run tests once in Chrome Headless |
 
-```bash
-npm run build
+## Configuration
+
+The public API URL is configured in:
+
+```text
+src/environments/environment.ts
+src/environments/environment.prod.ts
 ```
 
-GitHub Pages build:
-
-```bash
-npm run build:pages
-```
-
-## Test
-
-Interactive test runner:
-
-```bash
-npm test
-```
-
-CI-safe test command:
-
-```bash
-npm run test:ci
-```
+Only frontend-safe values belong in these files. Do not commit AWS credentials,
+tokens, access keys, or private infrastructure settings.
 
 ## Deployment
 
-GitHub Pages deployment is handled by GitHub Actions.
+Deployment is handled by [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml).
 
-Workflow file:
+On every push to `main`, the workflow:
 
-```text
-.github/workflows/deploy-pages.yml
-```
+1. Installs dependencies with `npm ci`
+2. Runs the CI test command
+3. Builds the Angular app for the repository base path
+4. Uploads the static artifact
+5. Publishes it to GitHub Pages
 
-On push to `main`, the workflow installs dependencies, runs tests, builds the Angular app with the GitHub Pages base path, prepares the static artifact, and deploys it to GitHub Pages.
-
-## Project structure
+## Project Structure
 
 ```text
 .
@@ -109,17 +113,6 @@ On push to `main`, the workflow installs dependencies, runs tests, builds the An
 └── tsconfig.json
 ```
 
-## Environment configuration
-
-The frontend API endpoint is configured in:
-
-```text
-src/environments/environment.ts
-src/environments/environment.prod.ts
-```
-
-Only public frontend-safe URLs should be stored there. Do not commit AWS credentials, access keys, tokens, or private configuration.
-
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Released under the [MIT License](LICENSE).

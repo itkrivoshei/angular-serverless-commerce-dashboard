@@ -8,6 +8,7 @@ import { State } from '../../store/reducers/commerce.reducer';
 
 @Component({
   selector: 'app-commerce-table',
+  standalone: false,
   templateUrl: './commerce-table.component.html',
   styleUrls: ['./commerce-table.component.scss'],
 })
