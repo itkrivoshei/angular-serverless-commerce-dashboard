@@ -54,7 +54,10 @@
       <span class="api-badge">API Gateway proxy</span>
     </div>
 
-    <p *ngIf="error$ | async as error" class="state-message state-message--error">
+    <p
+      *ngIf="error$ | async as error"
+      class="state-message state-message--error"
+    >
       {{ error }}
     </p>
 
@@ -99,7 +102,7 @@
       [disabled]="isLoading$ | async"
       (click)="loadMore()"
     >
-      {{ (isLoading$ | async) ? 'Loading products…' : 'Load more products' }}
+      {{ (isLoading$ | async) ? "Loading products…" : "Load more products" }}
     </button>
   </div>
 </main>

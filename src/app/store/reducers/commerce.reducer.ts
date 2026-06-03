@@ -33,5 +33,5 @@ export const reducer = createReducer(
     ...state,
     isLoading: false,
     error: action.error,
-  }))
+  })),
 );

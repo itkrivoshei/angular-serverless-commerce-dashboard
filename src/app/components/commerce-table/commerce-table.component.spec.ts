@@ -5,7 +5,10 @@ import { MatTableModule } from '@angular/material/table';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { CommerceTableComponent } from './commerce-table.component';
-import { commerceFeatureKey, initialState } from '../../store/reducers/commerce.reducer';
+import {
+  commerceFeatureKey,
+  initialState,
+} from '../../store/reducers/commerce.reducer';
 
 describe('CommerceTableComponent', () => {
   let component: CommerceTableComponent;
