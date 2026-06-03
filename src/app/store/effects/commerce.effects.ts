@@ -14,22 +14,22 @@ export class CommerceEffects {
       mergeMap(() =>
         this.commerceService.getCommerces().pipe(
           map((commerces) =>
-            CommerceActions.loadCommercesSuccess({ commerces })
+            CommerceActions.loadCommercesSuccess({ commerces }),
           ),
           catchError(() =>
             of(
               CommerceActions.loadCommercesFailure({
                 error: 'Unable to load commerce data.',
-              })
-            )
-          )
-        )
-      )
-    )
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 
   constructor(
     private actions$: Actions,
-    private commerceService: CommerceService
+    private commerceService: CommerceService,
   ) {}
 }
