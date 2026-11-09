@@ -12,6 +12,10 @@ Commerce data dashboard built with Angular, Angular Material, NgRx, and an AWS A
 
 </div>
 
+> [!NOTE]
+> **Archived.** This was a learning project. It is complete and no longer maintained, so the repository is read-only.
+> The live demo stays online.
+
 ## Snapshot
 
 The app loads paginated commerce product data from a public AWS endpoint and renders it in a responsive Angular Material table.
